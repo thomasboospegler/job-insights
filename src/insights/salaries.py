@@ -1,4 +1,5 @@
 from typing import Union, List, Dict
+from .jobs import read
 
 
 def get_max_salary(path: str) -> int:
@@ -16,7 +17,15 @@ def get_max_salary(path: str) -> int:
     int
         The maximum salary paid out of all job opportunities
     """
-    raise NotImplementedError
+    jobs = read(path)
+    max_salary = 0
+    for job in jobs:
+        try:
+            if int(job["max_salary"]) > max_salary:
+                max_salary = int(job["max_salary"])
+        except ValueError:
+            pass
+    return max_salary
 
 
 def get_min_salary(path: str) -> int:
@@ -34,7 +43,6 @@ def get_min_salary(path: str) -> int:
     int
         The minimum salary paid out of all job opportunities
     """
-    raise NotImplementedError
 
 
 def matches_salary_range(job: Dict, salary: Union[int, str]) -> bool:
