@@ -43,6 +43,15 @@ def get_min_salary(path: str) -> int:
     int
         The minimum salary paid out of all job opportunities
     """
+    jobs = read(path)
+    min_salary = 99999
+    for job in jobs:
+        try:
+            if int(job["min_salary"]) < min_salary:
+                min_salary = int(job["min_salary"])
+        except ValueError:
+            pass
+    return min_salary
 
 
 def matches_salary_range(job: Dict, salary: Union[int, str]) -> bool:
